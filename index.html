@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head>
+<title>MaptimePDX | Leaflet Intro</title>
+<meta charset="utf-8">
+<link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+ <!--[if lte IE 8]>
+     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
+ <![endif]-->
+
+<!-- THIS IS WHERE WE PUT ALL THE STYLE INFO FOR THE PAGE-->
+<style type="text/css">
+	body {
+		padding: 0;
+		margin: 0;
+	}
+
+	html, body, #map {
+		height: 100%; /* make the map take up the whole page */
+	}
+</style>
+	
+<body>
+	<!-- the 'map' div is where the map content is going -->
+	<div id="map"></div> 
+<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src='http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'></script>
+<script>
+	// create a map in the "map" div, set the view to a given place and zoom
+	var centerCoordinates = [45.57, -122.67]; // lat, long for map center
+	var zoomLevel = 14;
+	// tell leaflet we want the map to be in the #map div
+	var map = L.map('map') 
+	.setView(
+	    centerCoordinates,
+	    zoomLevel
+	);
+
+	// add an OpenStreetMap tile layer
+	var tileUrl = 'http://{s}.tile.osm.org/{z}/{x}/{y}.png';
+	L.tileLayer(
+	    tileUrl, 
+	    {attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'}
+	)
+	.addTo(map);
+
+	// define coordinates for a great brewpub
+	var breakside = [45.571601194035345, -122.65673562884331];
+	// add those coordinates to the map as a marker
+	var marker = L.marker(breakside).addTo(map);
+
+	// define coordinates for a great city park
+	var pPark = [[45.569869911521714, -122.67479360103607],
+	             [45.56989244332701, -122.67237961292267],
+	             [45.56647501625207, -122.67237961292267],
+	             [45.56646750519433, -122.67483651638031]
+	            ];
+	// add those coordinates to the map as a polygon
+	var polygon = L.polygon(pPark).addTo(map);
+
+	// add some popups to our marker and polygon
+	marker.bindPopup("<b>Hello world!</b><br>I am a brewpub!");
+	polygon.bindPopup("I am a lovely park.");
+
+</script>
+</body>
+</html>
